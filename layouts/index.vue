@@ -1,5 +1,6 @@
 <template>
   <div>
+    <AppTopbar />
     <slot />
   </div>
 </template>
