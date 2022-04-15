@@ -1,0 +1,12 @@
+// https://github.com/maxvanweenen/Nuxt-3-bootstrap-5-starter/blob/main/assets/scss/main.scss
+
+@import "colors.scss";
+
+$primary: $primary;
+$secondary: $secondary;
+$success: $success;
+$info: $info;
+$warning: $warning;
+$danger: $danger;
+
+@import "bootstrap/scss/bootstrap";
