@@ -1,7 +1,7 @@
 <template>
   <div class="topbar">
     <div class="topbar__left">
-      <span> Logo </span>
+      <span class="material-icons-two-tone"> desktop_mac </span>
       <span> YenLong's Playground </span>
     </div>
   </div>
@@ -17,7 +17,7 @@ export default {};
 @import '~/assets/scss/fonts.scss';
 
 .topbar {
-  @include FontCodeMedium-XBold;
+  @include FontCodeXXXLarge-XBold;
   background-color: $primary;
 }
 </style>

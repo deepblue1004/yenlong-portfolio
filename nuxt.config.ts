@@ -8,5 +8,6 @@ export default defineNuxtConfig({
       htmlAttrs: [{ lang: 'en' }],
     },
   },
+  modules: [],
 });
 
