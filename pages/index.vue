@@ -3,15 +3,16 @@
 </template>
 
 <script lang="ts">
-definePageMeta({
-  layout: "index",
-});
 export default {
   setup() {
+    definePageMeta({
+      layout: 'index',
+      title: 'Home',
+    });
     return {};
   },
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
+

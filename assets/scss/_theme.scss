@@ -1,6 +1,5 @@
-// https://github.com/maxvanweenen/Nuxt-3-bootstrap-5-starter/blob/main/assets/scss/main.scss
-
-@import "colors.scss";
+// Bootstrap 5 setting - https://github.com/maxvanweenen/Nuxt-3-bootstrap-5-starter/blob/main/assets/scss/main.scss
+@import 'colors.scss';
 
 $primary: $primary;
 $secondary: $secondary;
@@ -9,4 +8,9 @@ $info: $info;
 $warning: $warning;
 $danger: $danger;
 
-@import "bootstrap/scss/bootstrap";
+@import 'bootstrap/scss/bootstrap';
+@import 'fonts.scss';
+
+body {
+  font-family: unquote('Roboto');
+}
