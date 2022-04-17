@@ -1,38 +1,77 @@
 <template>
-  <div class="topbar">
-    <div class="topbar__left">
-      <span class="material-icons-two-tone"> desktop_mac </span>
-      <span> YenLong's Playground </span>
+  <div class="topbar" :class="{ 'topbar--sm': smallScreen }">
+    <div
+      v-if="smallScreen"
+      @click="isNavOpen = !isNavOpen"
+      class="topbar__nav-toggle"
+    >
+      <span class="material-icons"> menu </span>
     </div>
+
+    <div class="topbar__title">
+      <span class="logo material-icons"> desktop_mac </span>
+      <span>
+        {{ smallScreen ? 'YL' : 'YenLong' }}
+        's Playground
+      </span>
+    </div>
+
+    <div v-if="!smallScreen" class="topbar__nav">
+      <div v-for="n in navItems" :key="n" class="nav-item">
+        {{ n.title }}
+      </div>
+    </div>
+
     <div class="topbar__right">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNavAltMarkup"
-            aria-controls="navbarNavAltMarkup"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-              <a class="nav-link active" aria-current="page" href="#">Item</a>
-              <a class="nav-link" href="#">Item</a>
-              <a class="nav-link" href="#">Item</a>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <i class="bi bi-github"></i>
+      <span class="material-icons"> login </span>
     </div>
+
+    <transition name="expand">
+      <div v-if="smallScreen && isNavOpen" class="topbar__side-nav">
+        <div v-for="n in navItems" :key="n" class="nav-item">
+          {{ n.title }}
+        </div>
+      </div>
+    </transition>
   </div>
 </template>
 
 <script>
-export default {};
+const SMALL_SCREEN_WIDTH = 700;
+
+export default {
+  data() {
+    return {
+      windowWidth: SMALL_SCREEN_WIDTH,
+      isNavOpen: false,
+      navItems: [{ title: 'About' }, { title: 'About' }, { title: 'About' }],
+    };
+  },
+  watch: {},
+  computed: {
+    smallScreen() {
+      return this.windowWidth < SMALL_SCREEN_WIDTH;
+    },
+  },
+  mounted() {
+    const vm = this;
+    vm.$nextTick(() => {
+      window.addEventListener('resize', vm.onResize);
+    });
+    vm.windowWidth = window.innerWidth;
+  },
+  beforeDestroy() {
+    const vm = this;
+    window.removeEventListener('resize', vm.onResize);
+  },
+  methods: {
+    onResize() {
+      const vm = this;
+      vm.windowWidth = window.innerWidth;
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -41,15 +80,96 @@ export default {};
 @import '~/assets/scss/fonts.scss';
 
 .topbar {
-  background-color: $primary;
-  padding: 20px;
+  background-image: linear-gradient($primary 90%, transparent);
+  color: white;
+  padding: 20px {
+    left: 32px;
+  }
   display: flex;
   justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
 
-  &__left {
-    @include FontXLarge-Bold;
-    .material-icons-two-tone {
+  &__nav-toggle {
+    $size: 24px;
+    padding: 10px;
+    margin: {
+      right: 5px;
+    }
+    height: $size;
+    width: $size;
+    border-radius: $size;
+    box-sizing: content-box;
+    cursor: pointer;
+    user-select: none;
+
+    &:hover {
+      background-color: tint-color($primary, 10);
+    }
+  }
+
+  &__title {
+    @include FontXXXBig-Bold;
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+
+    .logo {
       font-size: 44px;
+      margin-right: 20px;
+    }
+  }
+
+  &__nav {
+    @include FontMedium;
+    display: flex;
+    margin: {
+      left: auto;
+      right: 28px;
+    }
+
+    .nav-item {
+      margin: 0 10px;
+    }
+  }
+
+  &__right {
+    display: flex;
+    align-items: center;
+
+    * {
+      font-size: 28px;
+      margin-right: 15px;
+      cursor: pointer;
+      user-select: none;
+    }
+  }
+}
+
+.topbar--sm {
+  padding: {
+    left: 10px;
+    right: 10px;
+  }
+  .topbar__title {
+    @include FontBig-Bold;
+  }
+
+  .logo {
+    font-size: 32px;
+    margin-right: 15px;
+  }
+
+  .topbar__side-nav {
+    width: 100vw;
+    .nav-item {
+      margin: 10px 0;
+      padding: 10px 15px;
+      border-radius: 4px;
+
+      &:hover {
+        background-color: tint-color($primary, 20);
+      }
     }
   }
 }
