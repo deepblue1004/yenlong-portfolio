@@ -5,6 +5,7 @@
     "build": "nuxi build",
     "start": "node .output/server/index.mjs",
     "emulator": "firebase emulators:start",
+    "predeploy": "npx cross-env NITRO_PRESET=firebase npm run build",
     "deploy": "firebase deploy"
   },
   "devDependencies": {
@@ -27,3 +28,4 @@
     "sass-loader": "^12.6.0"
   }
 }
+
