@@ -16,24 +16,21 @@
       </span>
     </div>
 
-    <div v-if="!smallScreen" class="topbar__nav">
-      <div v-for="n in navItems" :key="n" class="nav-item">
-        {{ n.title }}
-      </div>
-    </div>
-
-    <div class="topbar__right">
-      <i class="bi bi-github"></i>
-      <span class="material-icons"> login </span>
-    </div>
-
     <transition name="expand">
-      <div v-if="smallScreen && isNavOpen" class="topbar__side-nav">
+      <div
+        v-if="(smallScreen && isNavOpen) || !smallScreen"
+        class="topbar__nav"
+      >
         <div v-for="n in navItems" :key="n" class="nav-item">
           {{ n.title }}
         </div>
       </div>
     </transition>
+
+    <div class="topbar__right">
+      <i class="bi bi-github"></i>
+      <span class="material-icons"> login </span>
+    </div>
   </div>
 </template>
 
@@ -99,6 +96,7 @@ export default {
     height: $size;
     width: $size;
     border-radius: $size;
+    order: 1;
     box-sizing: content-box;
     cursor: pointer;
     user-select: none;
@@ -112,6 +110,7 @@ export default {
     @include FontXXXBig-Bold;
     display: flex;
     flex-grow: 1;
+    order: 2;
     align-items: center;
 
     .logo {
@@ -123,6 +122,7 @@ export default {
   &__nav {
     @include FontMedium;
     display: flex;
+    order: 3;
     margin: {
       left: auto;
       right: 28px;
@@ -136,6 +136,7 @@ export default {
   &__right {
     display: flex;
     align-items: center;
+    order: 4;
 
     * {
       font-size: 28px;
@@ -160,8 +161,11 @@ export default {
     margin-right: 15px;
   }
 
-  .topbar__side-nav {
+  .topbar__nav {
+    display: block;
+    margin: 0;
     width: 100vw;
+    order: 5;
     .nav-item {
       margin: 10px 0;
       padding: 10px 15px;
