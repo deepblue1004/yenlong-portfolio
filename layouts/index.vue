@@ -1,5 +1,6 @@
 <template>
   <div>
+    <AppSlideshow />
     <AppTopbar />
     <slot />
   </div>

@@ -2,7 +2,11 @@ import { defineNuxtConfig } from 'nuxt3';
 
 // https://v3.nuxtjs.org/docs/directory-structure/nuxt.config
 export default defineNuxtConfig({
-  css: ['~/assets/scss/_theme.scss', '~/assets/scss/transition.scss'],
+  css: [
+    '~/assets/scss/_theme.scss',
+    '~/assets/scss/transition.scss',
+    'highlight.js/styles/vs.css',
+  ],
   app: {
     head: {
       htmlAttrs: [{ lang: 'en' }],
@@ -19,6 +23,5 @@ export default defineNuxtConfig({
       ],
     },
   },
-  modules: [],
 });
 

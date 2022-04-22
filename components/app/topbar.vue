@@ -77,8 +77,8 @@ export default {
 @import '~/assets/scss/fonts.scss';
 
 .topbar {
-  background-image: linear-gradient($primary 90%, transparent);
-  color: white;
+  color: black;
+  box-shadow: 0px 5px 7px rgba(0, 0, 0, 0.1);
   padding: 20px {
     left: 32px;
   }
@@ -99,10 +99,9 @@ export default {
     order: 1;
     box-sizing: content-box;
     cursor: pointer;
-    user-select: none;
 
     &:hover {
-      background-color: tint-color($primary, 10);
+      background-color: shade-color(white, 5);
     }
   }
 
@@ -142,7 +141,6 @@ export default {
       font-size: 28px;
       margin-right: 15px;
       cursor: pointer;
-      user-select: none;
     }
   }
 }
@@ -172,7 +170,7 @@ export default {
       border-radius: 4px;
 
       &:hover {
-        background-color: tint-color($primary, 20);
+        background-color: shade-color(white, 5);
       }
     }
   }

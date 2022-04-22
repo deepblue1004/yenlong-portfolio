@@ -22,6 +22,7 @@
   "dependencies": {
     "autoprefixer": "^10.4.4",
     "bootstrap": "^5.1.3",
+    "highlight.js": "latest",
     "postcss": "^8.4.12",
     "postcss-loader": "^6.2.1",
     "sass": "^1.50.0",
