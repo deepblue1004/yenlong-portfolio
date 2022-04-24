@@ -1,7 +1,11 @@
 <template>
   <client-only>
-    <div class="slideshow" @mousemove.self="onMouseMove($event)">
-      <pre @mousemove.self="onMouseMove($event)" :style="transformXY">
+    <div
+      class="slideshow"
+      @mousemove="moveSelf($event)"
+      @touchmove="moveSelf($event)"
+    >
+      <pre :style="transformXY">
     <code v-highlight class="csharp">
   namespace Playground
   {
@@ -27,11 +31,17 @@ export default {
   },
   mounted() {},
   methods: {
-    onMouseMove(e: MouseEvent) {
+    moveSelf(e: MouseEvent | TouchEvent) {
       const vm = this;
-      const posX = e.clientX / 5;
-      const posY = e.clientY / 10;
+      let eventPoint;
 
+      if (e instanceof MouseEvent) {
+        eventPoint = e;
+      } else {
+        eventPoint = e.touches[0];
+      }
+      const posX = eventPoint.clientX / 4;
+      const posY = eventPoint.clientY / 10;
       vm.transformXY = `transform: translate(${posX}px, -${posY}px);`;
     },
   },
@@ -42,6 +52,7 @@ export default {
 @import '~/assets/scss/colors.scss';
 
 .slideshow {
+  overflow: hidden;
   height: 200px;
 
   @media screen and (max-width: 768px) {
@@ -53,7 +64,6 @@ export default {
   }
 
   pre {
-    overflow: hidden;
     max-width: 620px;
     margin: auto;
 
