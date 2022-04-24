@@ -3,6 +3,7 @@
     <AppSlideshow />
     <AppTopbar />
     <slot />
+    <AppFooter />
   </div>
 </template>
 

@@ -40,12 +40,16 @@ export default {
 @import '~/assets/scss/fonts.scss';
 
 .topbar {
+  background-color: white;
   color: black;
   box-shadow: 0px 5px 7px rgba(0, 0, 0, 0.1);
   display: flex;
   justify-content: space-around;
   align-items: center;
   flex-wrap: wrap;
+  position: sticky;
+  top: 0;
+  z-index: 1;
   padding: 0 20px 0 32px;
 
   &__nav-toggle {

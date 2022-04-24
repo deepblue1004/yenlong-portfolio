@@ -1,5 +1,5 @@
 <template>
-  <div></div>
+  <div class="index-body">body</div>
 </template>
 
 <script lang="ts">
@@ -14,5 +14,12 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.index-body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 20px;
+}
+</style>
 
