@@ -34,7 +34,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 const SMALL_SCREEN_WIDTH = 700;
 
 export default {
@@ -47,7 +47,7 @@ export default {
   },
   watch: {},
   computed: {
-    smallScreen() {
+    smallScreen(): boolean {
       return this.windowWidth < SMALL_SCREEN_WIDTH;
     },
   },
