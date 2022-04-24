@@ -1,31 +1,19 @@
 <template>
-  <div class="topbar" :class="{ 'topbar--sm': smallScreen }">
-    <div
-      v-if="smallScreen"
-      @click="isNavOpen = !isNavOpen"
-      class="topbar__nav-toggle"
-    >
+  <div class="topbar">
+    <div @click="isNavOpen = !isNavOpen" class="topbar__nav-toggle">
       <span class="material-icons"> menu </span>
     </div>
 
     <div class="topbar__title">
       <span class="logo material-icons"> desktop_mac </span>
-      <span>
-        {{ smallScreen ? 'YL' : 'YenLong' }}
-        's Playground
-      </span>
+      <span class="title"> 's Playground </span>
     </div>
 
-    <transition name="expand">
-      <div
-        v-if="(smallScreen && isNavOpen) || !smallScreen"
-        class="topbar__nav"
-      >
-        <div v-for="n in navItems" :key="n" class="nav-item">
-          {{ n.title }}
-        </div>
+    <div class="topbar__nav" :class="{ 'topbar__nav--expand': isNavOpen }">
+      <div v-for="n in navItems" :key="n" class="nav-item">
+        {{ n.title }}
       </div>
-    </transition>
+    </div>
 
     <div class="topbar__right">
       <i class="bi bi-github"></i>
@@ -35,39 +23,14 @@
 </template>
 
 <script lang="ts">
-const SMALL_SCREEN_WIDTH = 700;
-
 export default {
   data() {
     return {
-      windowWidth: SMALL_SCREEN_WIDTH,
       isNavOpen: false,
       navItems: [{ title: 'About' }, { title: 'About' }, { title: 'About' }],
     };
   },
-  watch: {},
-  computed: {
-    smallScreen(): boolean {
-      return this.windowWidth < SMALL_SCREEN_WIDTH;
-    },
-  },
-  mounted() {
-    const vm = this;
-    vm.$nextTick(() => {
-      window.addEventListener('resize', vm.onResize);
-    });
-    vm.windowWidth = window.innerWidth;
-  },
-  beforeDestroy() {
-    const vm = this;
-    window.removeEventListener('resize', vm.onResize);
-  },
-  methods: {
-    onResize() {
-      const vm = this;
-      vm.windowWidth = window.innerWidth;
-    },
-  },
+  methods: {},
 };
 </script>
 
@@ -79,13 +42,11 @@ export default {
 .topbar {
   color: black;
   box-shadow: 0px 5px 7px rgba(0, 0, 0, 0.1);
-  padding: 20px {
-    left: 32px;
-  }
   display: flex;
   justify-content: space-around;
   align-items: center;
   flex-wrap: wrap;
+  padding: 0 20px 0 32px;
 
   &__nav-toggle {
     $size: 24px;
@@ -103,6 +64,10 @@ export default {
     &:hover {
       background-color: shade-color(white, 5);
     }
+
+    @media screen and (min-width: 768px) {
+      display: none;
+    }
   }
 
   &__title {
@@ -111,10 +76,28 @@ export default {
     flex-grow: 1;
     order: 2;
     align-items: center;
+    padding: 20px 0;
 
     .logo {
       font-size: 44px;
       margin-right: 20px;
+    }
+
+    .title::before {
+      content: 'YenLong';
+    }
+
+    @media screen and (max-width: 768px) {
+      @include FontBig-Bold;
+
+      .logo {
+        font-size: 32px;
+        margin-right: 15px;
+      }
+
+      .title::before {
+        content: 'YL';
+      }
     }
   }
 
@@ -130,6 +113,32 @@ export default {
     .nav-item {
       margin: 0 10px;
     }
+
+    @media screen and (max-width: 768px) {
+      max-height: 0px;
+      display: block;
+      overflow: hidden;
+      margin: 0;
+      width: 100vw;
+      order: 5;
+      transition: max-height 0.5s ease-out;
+      .nav-item {
+        margin: 10px 0;
+        padding: 10px 15px;
+        border-radius: 4px;
+
+        &:hover {
+          background-color: shade-color(white, 5);
+        }
+      }
+    }
+
+    &--expand {
+      @media screen and (max-width: 768px) {
+        max-height: 100vh;
+        transition: max-height 0.5s ease-in;
+      }
+    }
   }
 
   &__right {
@@ -143,35 +152,11 @@ export default {
       cursor: pointer;
     }
   }
-}
 
-.topbar--sm {
-  padding: {
-    left: 10px;
-    right: 10px;
-  }
-  .topbar__title {
-    @include FontBig-Bold;
-  }
-
-  .logo {
-    font-size: 32px;
-    margin-right: 15px;
-  }
-
-  .topbar__nav {
-    display: block;
-    margin: 0;
-    width: 100vw;
-    order: 5;
-    .nav-item {
-      margin: 10px 0;
-      padding: 10px 15px;
-      border-radius: 4px;
-
-      &:hover {
-        background-color: shade-color(white, 5);
-      }
+  @media screen and (max-width: 768px) {
+    padding: {
+      left: 10px;
+      right: 10px;
     }
   }
 }

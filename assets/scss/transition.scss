@@ -4,8 +4,8 @@
 
 .expand-leave-active,
 .expand-enter-to {
-  transition: max-height 0.5s ease-out;
   max-height: 100vh;
+  transition: max-height 0.5s ease-out;
 }
 
 .expand-leave-to {
